@@ -95,4 +95,4 @@ while True:
 
     screen.blit(pygame.image.load("mira.gif").convert(), posicion)
 
-    pygame.display.update()
+pygame.display.update()
