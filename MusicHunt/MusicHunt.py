@@ -45,7 +45,7 @@ nivel= 1
 pygame.mixer.init(44100, -16, 2, 1024)
 
 # Musica
-pygame.mixer.music.set_volume(0.6)
+pygame.mixer.music.set_volume(0.9)
 
 while True:
 	for event in pygame.event.get():
@@ -77,7 +77,6 @@ while True:
 	# Fondo de Pantalla
 	screen.blit(pygame.image.load("fondo.png"), (0, 0))
 	screen.blit(pygame.font.SysFont("tahoma", 30).render("Puntacion: " + str(puntaje), True, blanco), (650, 500))
-	screen.blit(pygame.font.SysFont("tahoma", 40).render("Let's Play ...!!! ", True, blanco), (20, 0))
 
 	# Puntaje
 	if x_clic in range(x_nota * velocidad - 30, x_nota * velocidad + 30) and y_clic in range(y_nota - 30, y_nota + 30):
@@ -85,14 +84,14 @@ while True:
 		pygame.mixer.music.load("disparo.mp3")
 		pygame.mixer.music.play()
 
-		puntaje += 10
+		puntaje += 5
 		velocidad += 1
 		x_nota= 0
 		y_nota= randint(50, 500)
 
 	screen.blit(pygame.image.load("nota.png"), (x_nota * velocidad, y_nota))
 
-	if puntaje== 20:
+	if puntaje== 50:
 		screen.fill(negro)
 		pygame.mouse.set_visible(False)
 
@@ -101,10 +100,8 @@ while True:
 		screen.blit(pygame.font.SysFont("tahoma", 40).render("Bonus Time", True, blanco), (20, 0))
 
 		screen.blit(pygame.image.load("musical.png"), (x_nota * velocidad, y_nota))
-		puntaje += 100
 
-
-	if puntaje== 20:
+	if puntaje== 100:
 		screen.fill(negro)
 		pygame.mouse.set_visible(False)
 
@@ -113,12 +110,14 @@ while True:
 		screen.blit(pygame.font.SysFont("tahoma", 40).render("Bonus Time", True, blanco), (20, 0))
 
 		screen.blit(pygame.image.load("play.png"), (x_nota * velocidad, y_nota))
-		puntaje += 100
 
 	if perder:
 		x_nota = -50
 		y_nota = -50
 		screen.blit(pygame.image.load("burla.png"), (400, 340))
+		screen.blit(pygame.font.SysFont("tahoma", 40).render("Game Over", True, blanco), (400, 20))
+
+
 
 	screen.blit(pygame.image.load("mira.gif").convert(), posicion)
 
