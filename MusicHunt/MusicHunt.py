@@ -17,7 +17,8 @@ pygame.init()
 negro= (0, 0, 0) #Color Negro
 blanco= (255, 255, 255) #Color Blanco
 
-screen= pygame.display.set_mode((890, 550), 0, 32) #Tamaño de la Pantalla y Lugar de Aparicion
+# Tamano de la Pantalla y Lugar de Aparicion
+screen= pygame.display.set_mode((890, 550), 0, 32) 
 
 # Titulo de la Ventana
 pygame.display.set_caption("Music Hunt")
