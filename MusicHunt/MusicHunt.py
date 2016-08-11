@@ -32,67 +32,95 @@ y_clic= 0
 
 # Coordanadas de la Nota Musical
 x_nota= 0
-y_nota= randint(0, 450)
+y_nota= randint(0, 500)
 
 puntaje= 0
-velocidad = 2
+velocidad= 1
 perder= False
+
+# Nivel
+nivel= 1
 
 # Jugador
 pygame.mixer.init(44100, -16, 2, 1024)
 
 # Musica
-pygame.mixer.music.set_volume(0.8)
+pygame.mixer.music.set_volume(0.6)
 
 while True:
-    for event in pygame.event.get():
-        # Cierra la ventana 
-        if event.type== QUIT:
-            exit()
-        elif event.type == MOUSEMOTION:
-            x_pos, y_pos= pygame.mouse.get_pos()
-        elif event.type == MOUSEBUTTONDOWN:
-            x_clic, y_clic= pygame.mouse.get_pos()
+	for event in pygame.event.get():
+		# Cierra la ventana 
+		if event.type== QUIT:
+			exit()
+		elif event.type == MOUSEMOTION:
+			x_pos, y_pos= pygame.mouse.get_pos()
+		elif event.type == MOUSEBUTTONDOWN:
+			x_clic, y_clic= pygame.mouse.get_pos()
 
-    posicion= (x_pos - 50, y_pos - 50)
+	posicion= (x_pos - 50, y_pos - 50)
 
-    x_nota += 1
+	x_nota += 1
 
-    if x_nota * velocidad > 890 and not perder:
-        x_nota= 0
-        y_nota= randint(0, 450)
+	if x_nota * velocidad > 890 and not perder:
+		x_nota= 0
+		y_nota= randint(0, 500)
 
-        # Game Over
-        pygame.mixer.music.load("burla.mp3")
-        pygame.mixer.music.play()
-        perder= True
+		# Game Over
+		pygame.mixer.music.load("burla.mp3")
+		pygame.mixer.music.play()
+		perder= True
 
-    # Fondo Negro
-    screen.fill(negro)
-    pygame.mouse.set_visible(False)
+	# Fondo Negro
+	screen.fill(negro)
+	pygame.mouse.set_visible(False)
 
-    # Fondo de Pantalla
-    screen.blit(pygame.image.load("fondo.png"), (0, 0))
-    screen.blit(pygame.font.SysFont("tahoma", 30).render("Score: " + str(puntaje), True, blanco), (500, 450))
+	# Fondo de Pantalla
+	screen.blit(pygame.image.load("fondo.png"), (0, 0))
+	screen.blit(pygame.font.SysFont("tahoma", 30).render("Puntacion: " + str(puntaje), True, blanco), (650, 500))
+	screen.blit(pygame.font.SysFont("tahoma", 40).render("Let's Play ...!!! ", True, blanco), (20, 0))
 
-    # Puntaje
-    if x_clic in range(x_nota * velocidad - 30, x_nota * velocidad + 30) and y_clic in range(y_nota - 30, y_nota + 30):
-        # Disparo
-        pygame.mixer.music.load("disparo.mp3")
-        pygame.mixer.music.play()
+	# Puntaje
+	if x_clic in range(x_nota * velocidad - 30, x_nota * velocidad + 30) and y_clic in range(y_nota - 30, y_nota + 30):
+		# Disparo
+		pygame.mixer.music.load("disparo.mp3")
+		pygame.mixer.music.play()
 
-        puntaje += 10
-        velocidad += 1
-        x_nota= 0
-        y_nota= randint(50, 500)
+		puntaje += 10
+		velocidad += 1
+		x_nota= 0
+		y_nota= randint(50, 500)
 
-    screen.blit(pygame.image.load("nota.png"), (x_nota * velocidad, y_nota))
+	screen.blit(pygame.image.load("nota.png"), (x_nota * velocidad, y_nota))
 
-    if perder:
-        x_nota = -50
-        y_nota = -50
-        screen.blit(pygame.image.load("burla.png"), (400, 340))
+	if puntaje== 20:
+		screen.fill(negro)
+		pygame.mouse.set_visible(False)
 
-    screen.blit(pygame.image.load("mira.gif").convert(), posicion)
+		screen.blit(pygame.image.load("fondo2.png"), (0, 0))
+		screen.blit(pygame.font.SysFont("tahoma", 30).render("Puntacion " + str(puntaje), True, blanco), (700, 500))
+		screen.blit(pygame.font.SysFont("tahoma", 40).render("Bonus Time", True, blanco), (20, 0))
 
-pygame.display.update()
+		screen.blit(pygame.image.load("musical.png"), (x_nota * velocidad, y_nota))
+		puntaje += 100
+
+
+	if puntaje== 20:
+		screen.fill(negro)
+		pygame.mouse.set_visible(False)
+
+		screen.blit(pygame.image.load("fondo3.png"), (0, 0))
+		screen.blit(pygame.font.SysFont("tahoma", 30).render("Puntacion " + str(puntaje), True, blanco), (700, 500))
+		screen.blit(pygame.font.SysFont("tahoma", 40).render("Bonus Time", True, blanco), (20, 0))
+
+		screen.blit(pygame.image.load("play.png"), (x_nota * velocidad, y_nota))
+		puntaje += 100
+
+	if perder:
+		x_nota = -50
+		y_nota = -50
+		screen.blit(pygame.image.load("burla.png"), (400, 340))
+
+	screen.blit(pygame.image.load("mira.gif").convert(), posicion)
+
+	pygame.display.update()
+
