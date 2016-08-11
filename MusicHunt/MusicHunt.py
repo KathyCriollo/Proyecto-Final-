@@ -60,10 +60,16 @@ while True:
 	posicion= (x_pos - 50, y_pos - 50)
 
 	x_nota += 1
+	y_nota += 1
 
 	if x_nota * velocidad > 890 and not perder:
-		x_nota= 0
+		x_nota= randint(0, 500)
 		y_nota= randint(0, 500)
+		if y_nota > 500 or y_nota < 0:
+			y_nota = y_nota * -1
+		if x_nota > 700 or x_nota < 0:
+			x_nota = x_nota * -1
+
 
 		# Game Over
 		pygame.mixer.music.load("burla.mp3")
@@ -101,7 +107,7 @@ while True:
 
 		screen.blit(pygame.image.load("musical.png"), (x_nota * velocidad, y_nota))
 
-	if puntaje== 100:
+	if puntaje== 150:
 		screen.fill(negro)
 		pygame.mouse.set_visible(False)
 
@@ -115,9 +121,7 @@ while True:
 		x_nota = -50
 		y_nota = -50
 		screen.blit(pygame.image.load("burla.png"), (400, 340))
-		screen.blit(pygame.font.SysFont("tahoma", 40).render("Game Over", True, blanco), (400, 20))
-
-
+		screen.blit(pygame.font.SysFont("tahoma", 40).render("Game Over", True, blanco), (350, 20))
 
 	screen.blit(pygame.image.load("mira.gif").convert(), posicion)
 
